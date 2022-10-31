@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "PDF Downloader",
+  "description": "Automatically download PDF files",
+  "version": "1",
+
+  "permissions": [
+    "downloads", "activeTab","tabs", "<all_urls>", "webRequest", "storage"
+  ],
+  "icons": {
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
+}
