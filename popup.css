@@ -1,0 +1,88 @@
+body{
+    width: 220px;
+    height:150px;;
+}
+
+
+div.title {
+	display:inline-block;
+}
+
+div.checkbox1 {
+	display:inline-block;
+	position: relative;
+	top: 3%;
+	left: 5%;
+}
+div.infoText {
+	display:inline-block;
+	position:absolute;
+  bottom: 20%;
+  left: 5%;
+	right: 5%;
+  text-align: center;
+
+}
+
+#logo{
+	float: left;  
+}
+
+
+#togglePopup{
+	position: relative;
+	left: 5px;
+	top:10px;
+	float: left;  
+}
+
+div.text {
+	position: relative;
+	left: 5px;
+	top:10px;
+	color: #494a4d;
+	font-size: 14px;
+	overflow: hidden;
+}
+
+
+div.text2 {
+	position: relative;
+	left: 5px;
+	top:10px;
+	color: #494a4d;
+	font-size: 12px;
+	overflow: hidden;
+}
+
+
+div.buttontext{
+	display:block;
+}
+
+button {
+	position:absolute;
+  bottom: 10%;
+  left: 20%;
+	right: 20%;
+	background-color:#BB0E0E;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 8vmin;
+	opacity: 0.8;
+	margin:0 auto;
+	border-radius: 5px;
+	display:block;
+	transition-duration: 0.2s;
+}
+
+button:hover {
+  opacity: 1
+}
+
+button:active {
+  opacity: 1
+}
