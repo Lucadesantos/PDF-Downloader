@@ -3,7 +3,7 @@ var autoDownload = false;
 var title = "";
 var doc = "";
 var found = false;
-
+var newTab = false;
 if (typeof browser === "undefined") {
     var browser = chrome;
 }
@@ -21,6 +21,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	}
  	found = false
  	sendInfo()
+ 	if (changeInfo.status == 'complete'){
+ 		newTab = true;
+ 	}
  }); 
 
 function getHeaderFromHeaders(headers, headerName) {
@@ -60,8 +63,9 @@ chrome.webRequest.onHeadersReceived.addListener(
 			doc = details.url;
 			found = true;
 			sendInfo();
-			if (autoDownload==true){
+			if (autoDownload==true && newTab==true){
 				download(doc);
+				newTab = false;
 			}	
 		}
 	},
