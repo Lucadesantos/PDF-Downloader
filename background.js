@@ -1,8 +1,8 @@
 
 var autoDownload = false;
-var title;
-var doc;
-var found;
+var title = "";
+var doc = "";
+var found = false;
 
 if (typeof browser === "undefined") {
     var browser = chrome;
@@ -12,7 +12,6 @@ chrome.storage.sync.get(['key'], function(result) {
 	autoDownload = result.key;
 });
 
-
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	console.log("new tab loaded " + tab.title);
 	title = tab.title;
@@ -20,9 +19,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 		title = title.replaceAll(" ", "_").replace(/[^a-zA-Z0-9éàèÉê()_]/g, "");
 		console.log(title);
 	}
-	chrome.runtime.sendMessage({pdfFound: false})
- 	found= false
- 	
+ 	found = false
+ 	sendInfo()
  }); 
 
 function getHeaderFromHeaders(headers, headerName) {
@@ -50,13 +48,18 @@ function download(url){
 	});
 }
 
+function sendInfo(){
+	shortName=title.slice(0,24) + ".pdf";
+	chrome.runtime.sendMessage({pdfFound: found, name:shortName});
+}
+
 chrome.webRequest.onHeadersReceived.addListener(
 	function callback(details) {
 		if (isPdfFile(details)) {
 			console.log('PDF file detected: ' + details.url);
-			chrome.runtime.sendMessage({pdfFound: true})
 			doc = details.url;
 			found = true;
+			sendInfo();
 			if (autoDownload==true){
 				download(doc);
 			}	
@@ -78,7 +81,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse){
     	console.log(request.msg);
     	if (request.msg=="getStatus"){
-    		chrome.runtime.sendMessage({pdfFound: found})
+			sendInfo();
     	}
     	if (request.msg == "checked"){
     		autoDownload = true
