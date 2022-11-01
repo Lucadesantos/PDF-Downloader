@@ -7,7 +7,7 @@ if (typeof browser === "undefined") {
 var title;
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-	title = tab.title.replaceAll("/", "-").replaceAll(" ", "_").replaceAll(".","").replaceAll(",","");
+	title = tab.title.replace(/[^a-zA-Z ]/g, "").replaceAll(" ", "_");
  }); 
 
 function getHeaderFromHeaders(headers, headerName) {
